@@ -2,7 +2,7 @@
 	<div ref:container style='padding-top: {_top}px; padding-bottom: {_bottom}px;'>
 		{#each visible as item (item.index)}
 			<div class='row'>
-				<svelte:component this={component} {..._props} {...item.data} />
+				<svelte:component this={component} {..._props} {...item.data} item={item.data} {items} i={item.index} on:hover on:click />
 			</div>
 		{/each}
 	</div>
@@ -110,6 +110,8 @@
 
 					while (height < _viewportHeight && i < items.length) {
 						this.set({ end: i + 1 });
+						
+						if (this.rows.length === 0) return;
 
 						const rowHeight = this.heightMap[i] = this.rows[i].offsetHeight;
 						height += rowHeight;
